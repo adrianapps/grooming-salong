@@ -1,0 +1,13 @@
+<h2>Dodaj Usługę</h2>
+<form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+  <label for="name">Nazwa:</label>
+  <input id="name" formControlName="name" type="text">
+
+  <label for="description">Opis:</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <label for="price">Cena:</label>
+  <input id="price" formControlName="price" type="number">
+
+  <button type="submit" [disabled]="serviceForm.invalid">Dodaj Usługę</button>
+</form>

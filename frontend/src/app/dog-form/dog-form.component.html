@@ -1,0 +1,19 @@
+<h2>Dodaj Psa</h2>
+<form [formGroup]="dogForm" (ngSubmit)="onSubmit()">
+  <label for="name">Imię Psa:</label>
+  <input id="name" formControlName="name" type="text">
+
+  <label for="breed">Rasa:</label>
+  <input id="breed" formControlName="breed" type="text">
+
+  <label for="age">Wiek:</label>
+  <input id="age" formControlName="age" type="number">
+
+  <label for="photo">Zdjęcie:</label>
+  <input id="photo" formControlName="photo" type="file">
+
+  <button type="submit" [disabled]="dogForm.invalid">Dodaj Psa</button>
+</form>
+
+<div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>

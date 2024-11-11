@@ -1,0 +1,31 @@
+<form [formGroup]="visitForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="dog">Wybierz psa:</label>
+    <select id="dog" formControlName="dog">
+      <option *ngFor="let dog of dogs" [value]="dog.id">{{ dog.name }} ({{ dog.breed }})</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="service">Wybierz usługę:</label>
+    <select id="service" formControlName="services" multiple>
+      <option *ngFor="let service of services" [value]="service.id">{{ service.name }} - {{ service.price }} zł</option>
+    </select>
+  </div>
+
+  <label for="date">Data wizyty:</label>
+  <input id="date" formControlName="date" type="datetime-local">
+
+  <label for="description">Opis wizyty:</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <button type="submit" [disabled]="visitForm.invalid">Zarezerwuj wizytę</button>
+</form>
+
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
