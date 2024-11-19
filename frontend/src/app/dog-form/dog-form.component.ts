@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GroomingService } from '../grooming.service';
-import { ReactiveFormsModule } from '@angular/forms'; // Zaimportuj ReactiveFormsModule
+import { DogService } from '../services/dog.service';
+import { ReactiveFormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,7 +18,7 @@ export class DogFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private groomingService: GroomingService
+    private dogService: DogService 
   ) {
     this.dogForm = this.fb.group({
       name: ['', Validators.required],
@@ -39,7 +39,7 @@ export class DogFormComponent {
         formData.append('photo', photo, photo.name);
       }
   
-      this.groomingService.createDog(formData).subscribe(
+      this.dogService.createDog(formData).subscribe(
         response => {
           console.log('Dog created:', response);
           console.log(formData)

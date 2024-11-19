@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GroomingService } from '../grooming.service';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
+import { ServiceService } from '../services/service.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class ServiceFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private groomingService: GroomingService
+    private serviceService: ServiceService 
   ) {
     this.serviceForm = this.fb.group({
       name: ['', Validators.required],
@@ -31,7 +31,7 @@ export class ServiceFormComponent {
 
   onSubmit() {
     if (this.serviceForm.valid) {
-      this.groomingService.createService(this.serviceForm.value).subscribe(
+      this.serviceService.createService(this.serviceForm.value).subscribe(
         response => {
           console.log('Service created:', response);
           alert('Usługa została dodana!');

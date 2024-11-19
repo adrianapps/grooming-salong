@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GroomingService } from '../grooming.service';
+import { DogService } from '../services/dog.service';
 import { CommonModule } from '@angular/common'; 
 import { ReactiveFormsModule } from '@angular/forms';
+import { VisitService } from '../services/visit.service';
+import { ServiceService } from '../services/service.service';
+import { Dog } from '../models/dog.model';
+import { Service } from '../models/service.model';
 
 
 @Component({
@@ -14,14 +18,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class VisitFormComponent implements OnInit {
   visitForm!: FormGroup;
-  dogs: any[] = [];  // Lista dostępnych psów
-  services: any[] = [];  // Lista dostępnych usług
+  dogs: Dog[] = [];  // Lista dostępnych psów
+  services: Service[] = [];  // Lista dostępnych usług
   successMessage: string = '';
   errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private groomingService: GroomingService
+    private visitService: VisitService,
+    private dogService: DogService,
+    private serviceService: ServiceService,
   ){}
 
   // Metoda do pobierania dostępnych usług z backendu
@@ -40,13 +46,13 @@ export class VisitFormComponent implements OnInit {
   }
 
   loadDogs() {
-    this.groomingService.getDogs().subscribe(dogs => {
+    this.dogService.getDogs().subscribe(dogs => {
       this.dogs = dogs;
     });
   }
 
   loadServices() {
-    this.groomingService.getServices().subscribe(services => {
+    this.serviceService.getServices().subscribe(services => {
       this.services = services;
     });
   }
@@ -78,7 +84,7 @@ export class VisitFormComponent implements OnInit {
       console.log('Data wysyłane do API:', formData);
 
       // Przesyłanie danych do API
-      this.groomingService.createVisit(formData).subscribe(
+      this.visitService.createVisit(formData).subscribe(
         (response) => {
           console.log('Wizyta utworzona:', response);
           this.successMessage = 'Wizyta została pomyślnie zarezerwowana!';
