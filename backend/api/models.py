@@ -27,4 +27,4 @@ class Visit(models.Model):
     dog = models.ForeignKey(Dog, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f"{self.dog: {self.services}}"
+        return f"{self.dog}: {self.date}"
