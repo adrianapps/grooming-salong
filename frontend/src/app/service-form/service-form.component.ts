@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
 import { ServiceService } from '../services/service.service';
+import { ServiceTableComponent } from '../service-table/service-table.component';
 
 
 @Component({
   selector: 'app-service-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ServiceTableComponent],
   templateUrl: './service-form.component.html',
   styleUrl: './service-form.component.css'
 })

@@ -1,0 +1,26 @@
+<div class="overflow-x-auto">
+  <table class="table table-zebra">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let service of services; let i = index">
+      <th>{{ i + 1 }}</th>
+      <td>{{ service.name }}</td>
+      <td>{{ service.description }}</td>
+      <td>{{ service.price }}</td>
+      <td>
+        <!-- Add a delete button for each row -->
+        <button (click)="deleteService(service.id)" class="btn btn-error">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
