@@ -16,9 +16,19 @@ class DogSerializer(serializers.ModelSerializer):
 
 class VisitSerializer(serializers.ModelSerializer):
     services = serializers.PrimaryKeyRelatedField(
-        queryset=Service.objects.all(), many=True
+        many=True, queryset=Service.objects.all()
     )
 
     class Meta:
         model = Visit
         fields = ["id", "date", "description", "services", "dog"]
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        representation["dog"] = DogSerializer(instance.dog).data
+        representation["services"] = ServiceSerializer(
+            instance.services, many=True
+        ).data
+
+        return representation

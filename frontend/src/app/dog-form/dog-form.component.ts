@@ -15,8 +15,12 @@ export class DogFormComponent {
   dogForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
+<<<<<<< HEAD
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+=======
+  selectedFile: File | null = null; // Przechowywanie wybranego pliku
+>>>>>>> main
 
   constructor(
     private fb: FormBuilder,
@@ -26,32 +30,58 @@ export class DogFormComponent {
       name: ['', Validators.required],
       breed: ['', Validators.required],
       age: [0, [Validators.required, Validators.min(0)]],
-      photo: ['']
+      photo: [null]
     });
   }
 
+  // Obsługa wyboru pliku
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    } else {
+      this.selectedFile = null;
+      console.error('No file selected');
+    }
+  }
+
+  // Obsługa wysyłania formularza
   onSubmit() {
     if (this.dogForm.valid) {
       const formData = new FormData();
       formData.append('name', this.dogForm.get('name')?.value);
       formData.append('breed', this.dogForm.get('breed')?.value);
       formData.append('age', this.dogForm.get('age')?.value);
+<<<<<<< HEAD
       
       // Sprawdzamy, czy plik został wybrany i dodajemy go do FormData
       if (this.selectedFile) {
         formData.append('photo', this.selectedFile, this.selectedFile.name);
       } else {
         console.error('Nie wybrano pliku zdjęcia');
+=======
+
+      if (this.selectedFile) {
+        formData.append('photo', this.selectedFile, this.selectedFile.name);
+      } else {
+        console.error('No photo selected or invalid type');
+>>>>>>> main
       }
   
       this.dogService.createDog(formData).subscribe(
         response => {
+<<<<<<< HEAD
           this.successMessage = "Pies został dodany!";
+=======
+          console.log('Dog created:', response);
+          this.successMessage = 'Pies został dodany!';
+>>>>>>> main
           this.dogForm.reset();
           this.imagePreview = null;
           this.selectedFile = null; // Resetujemy wybrany plik po wysłaniu formularza
         },
-        error => {
+        (error) => {
           console.error('Error:', error);
           this.errorMessage = 'Wystąpił błąd przy dodawaniu psa.';
         }
