@@ -15,12 +15,8 @@ export class DogFormComponent {
   dogForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
-<<<<<<< HEAD
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
-=======
-  selectedFile: File | null = null; // Przechowywanie wybranego pliku
->>>>>>> main
 
   constructor(
     private fb: FormBuilder,
@@ -53,30 +49,17 @@ export class DogFormComponent {
       formData.append('name', this.dogForm.get('name')?.value);
       formData.append('breed', this.dogForm.get('breed')?.value);
       formData.append('age', this.dogForm.get('age')?.value);
-<<<<<<< HEAD
       
       // Sprawdzamy, czy plik został wybrany i dodajemy go do FormData
       if (this.selectedFile) {
         formData.append('photo', this.selectedFile, this.selectedFile.name);
       } else {
         console.error('Nie wybrano pliku zdjęcia');
-=======
-
-      if (this.selectedFile) {
-        formData.append('photo', this.selectedFile, this.selectedFile.name);
-      } else {
-        console.error('No photo selected or invalid type');
->>>>>>> main
       }
   
       this.dogService.createDog(formData).subscribe(
         response => {
-<<<<<<< HEAD
           this.successMessage = "Pies został dodany!";
-=======
-          console.log('Dog created:', response);
-          this.successMessage = 'Pies został dodany!';
->>>>>>> main
           this.dogForm.reset();
           this.imagePreview = null;
           this.selectedFile = null; // Resetujemy wybrany plik po wysłaniu formularza
