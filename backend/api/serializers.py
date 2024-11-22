@@ -5,7 +5,7 @@ from .models import Service, Dog, Visit
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ["id", "name", "price"]
+        fields = ["id", "name", "description", "price"]
 
 
 class DogSerializer(serializers.ModelSerializer):

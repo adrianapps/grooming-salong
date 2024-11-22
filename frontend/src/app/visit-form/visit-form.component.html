@@ -1,31 +1,77 @@
-<form [formGroup]="visitForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="dog">Wybierz psa:</label>
-    <select id="dog" formControlName="dog">
-      <option *ngFor="let dog of dogs" [value]="dog.id">{{ dog.name }} ({{ dog.breed }})</option>
-    </select>
+<div class="container mx-auto p-8">
+  <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-semibold text-center mb-6">Zarezerwuj Wizytę</h2>
+
+    <form [formGroup]="visitForm" (ngSubmit)="onSubmit()">
+      <!-- Wybór Psa -->
+      <div class="mb-4">
+        <label for="dog" class="block text-gray-700">Wybierz psa:</label>
+        <select
+          id="dog"
+          formControlName="dog"
+          class="input input-bordered w-full mt-2"
+        >
+          <option *ngFor="let dog of dogs" [value]="dog.id">
+            {{ dog.name }} ({{ dog.breed }})
+          </option>
+        </select>
+      </div>
+
+      <!-- Wybór Usługi -->
+      <div class="mb-4">
+        <label for="service" class="block text-gray-700">Wybierz usługę:</label>
+        <select
+          id="service"
+          formControlName="services"
+          multiple
+          class="input input-bordered w-full mt-2"
+        >
+          <option *ngFor="let service of services" [value]="service.id">
+            {{ service.name }} - {{ service.price }} zł
+          </option>
+        </select>
+      </div>
+
+      <!-- Data wizyty -->
+      <div class="mb-4">
+        <label for="date" class="block text-gray-700">Data wizyty:</label>
+        <input
+          id="date"
+          formControlName="date"
+          type="datetime-local"
+          class="input input-bordered w-full mt-2"
+        />
+      </div>
+
+      <!-- Opis wizyty -->
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700">Opis wizyty:</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="input input-bordered w-full mt-2"
+          placeholder="Dodaj szczegóły wizyty"
+        ></textarea>
+      </div>
+
+      <!-- Przycisk -->
+      <div class="flex justify-between items-center">
+        <button
+          type="submit"
+          [disabled]="visitForm.invalid"
+          class="btn btn-primary w-full py-2 mt-4"
+        >
+          Zarezerwuj wizytę
+        </button>
+      </div>
+    </form>
+
+    <!-- Komunikaty -->
+    <div *ngIf="successMessage" class="mt-4 text-green-500 text-center">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="mt-4 text-red-500 text-center">
+      {{ errorMessage }}
+    </div>
   </div>
-
-  <div>
-    <label for="service">Wybierz usługę:</label>
-    <select id="service" formControlName="services" multiple>
-      <option *ngFor="let service of services" [value]="service.id">{{ service.name }} - {{ service.price }} zł</option>
-    </select>
-  </div>
-
-  <label for="date">Data wizyty:</label>
-  <input id="date" formControlName="date" type="datetime-local">
-
-  <label for="description">Opis wizyty:</label>
-  <textarea id="description" formControlName="description"></textarea>
-
-  <button type="submit" [disabled]="visitForm.invalid">Zarezerwuj wizytę</button>
-</form>
-
-<div *ngIf="successMessage" class="success-message">
-  {{ successMessage }}
-</div>
-
-<div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
 </div>

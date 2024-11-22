@@ -1,0 +1,52 @@
+.container {
+    background-color: #ffc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.max-w-lg {
+    background: linear-gradient(to right, #fda085, #f6d365);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+  
+
+form {
+    background: linear-gradient(to right, #f6d365, #fda085);
+    background-size: cover;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+  
+input, button {
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+input[type="text"]{
+    background-color: #fffec8;
+}
+
+input[type="number"] {
+    background-color: #fffec8;
+}
+
+input[type="file"] {
+    background-color: #fffec8;
+}
+
+button {
+    background-color: #f09a7a;
+    color: black;
+}
+
+button:hover {
+    background-color: #e67e22;
+    cursor: pointer;
+}
+
+
