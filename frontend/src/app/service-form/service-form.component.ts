@@ -29,8 +29,14 @@ export class ServiceFormComponent {
     });
   }
 
+  ngOnInit() {
+    console.log('Form controls:', this.serviceForm.controls);
+  }
+  
+
   onSubmit() {
     if (this.serviceForm.valid) {
+      console.log('Form Value:', this.serviceForm.value); // Dodajemy log do sprawdzenia
       this.serviceService.createService(this.serviceForm.value).subscribe(
         response => {
           console.log('Service created:', response);
@@ -41,6 +47,8 @@ export class ServiceFormComponent {
           console.error('Error:', error);
         }
       );
+    } else {
+      console.error('Form is invalid:', this.serviceForm);
     }
   }
 }
