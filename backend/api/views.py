@@ -18,6 +18,12 @@ class DogViewSet(viewsets.ModelViewSet):
 
 
 class VisitViewSet(viewsets.ModelViewSet):
-    queryset = Visit.objects.all()
     serializer_class = VisitSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        if self.action == "list":
+            return Visit.objects.prefetch_related("services").select_related("dog")
+        elif self.action == "retrieve":
+            return Visit.objects.select_related("dog")
+        return Visit.objects.all()
