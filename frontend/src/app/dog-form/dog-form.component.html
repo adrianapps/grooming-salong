@@ -10,7 +10,11 @@
   <input id="age" formControlName="age" type="number">
 
   <label for="photo">Zdjęcie:</label>
-  <input id="photo" formControlName="photo" type="file">
+  <input type="file" 
+  (change)="onFileSelected($event)" 
+  formControlName="photo" 
+  accept="image/*"/>
+  
 
   <button type="submit" [disabled]="dogForm.invalid">Dodaj Psa</button>
 </form>

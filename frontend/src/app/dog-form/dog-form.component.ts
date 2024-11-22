@@ -15,6 +15,7 @@ export class DogFormComponent {
   dogForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
+  selectedFile: File | null = null; // Przechowywanie wybranego pliku
 
   constructor(
     private fb: FormBuilder,
@@ -24,30 +25,43 @@ export class DogFormComponent {
       name: ['', Validators.required],
       breed: ['', Validators.required],
       age: [0, [Validators.required, Validators.min(0)]],
-      photo: ['']
+      photo: [null]
     });
   }
 
+  // Obsługa wyboru pliku
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    } else {
+      this.selectedFile = null;
+      console.error('No file selected');
+    }
+  }
+
+  // Obsługa wysyłania formularza
   onSubmit() {
     if (this.dogForm.valid) {
       const formData = new FormData();
       formData.append('name', this.dogForm.get('name')?.value);
       formData.append('breed', this.dogForm.get('breed')?.value);
       formData.append('age', this.dogForm.get('age')?.value);
-      const photo = this.dogForm.get('photo')?.value;
-      if (photo) {
-        formData.append('photo', photo, photo.name);
+
+      if (this.selectedFile) {
+        formData.append('photo', this.selectedFile, this.selectedFile.name);
+      } else {
+        console.error('No photo selected or invalid type');
       }
-  
+
       this.groomingService.createDog(formData).subscribe(
-        response => {
+        (response) => {
           console.log('Dog created:', response);
-          console.log(formData)
-          this.successMessage = "Pies został dodany!";
-          alert('Pies został dodany!');
+          this.successMessage = 'Pies został dodany!';
           this.dogForm.reset();
         },
-        error => {
+        (error) => {
           console.error('Error:', error);
         }
       );
