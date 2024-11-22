@@ -45,7 +45,3 @@ button:hover {
     background-color: #e67e22;
     cursor: pointer;
 }
-
-input[type="file"] {
-    background-color: #fffec8;
-}
