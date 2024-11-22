@@ -15,6 +15,8 @@ export class DogFormComponent {
   dogForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -34,23 +36,45 @@ export class DogFormComponent {
       formData.append('name', this.dogForm.get('name')?.value);
       formData.append('breed', this.dogForm.get('breed')?.value);
       formData.append('age', this.dogForm.get('age')?.value);
-      const photo = this.dogForm.get('photo')?.value;
-      if (photo) {
-        formData.append('photo', photo, photo.name);
+      
+      // Sprawdzamy, czy plik został wybrany i dodajemy go do FormData
+      if (this.selectedFile) {
+        formData.append('photo', this.selectedFile, this.selectedFile.name);
+      } else {
+        console.error('Nie wybrano pliku zdjęcia');
       }
   
       this.dogService.createDog(formData).subscribe(
         response => {
-          console.log('Dog created:', response);
-          console.log(formData)
           this.successMessage = "Pies został dodany!";
           alert('Pies został dodany!');
           this.dogForm.reset();
+          this.imagePreview = null;
+          this.selectedFile = null; // Resetujemy wybrany plik po wysłaniu formularza
         },
         error => {
           console.error('Error:', error);
+          this.errorMessage = 'Wystąpił błąd przy dodawaniu psa.';
         }
       );
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
+  onFileChange(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput?.files?.[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;  // Zapisuje wynik do zmiennej, która trzyma obraz
+      };
+      reader.readAsDataURL(file);  // Wczytuje plik jako URL
+  
+      // Przechowujemy plik w zmiennej
+      this.selectedFile = file;
     }
   }
 }

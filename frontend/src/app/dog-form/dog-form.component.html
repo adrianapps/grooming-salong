@@ -1,19 +1,78 @@
-<h2>Dodaj Psa</h2>
-<form [formGroup]="dogForm" (ngSubmit)="onSubmit()">
-  <label for="name">Imię Psa:</label>
-  <input id="name" formControlName="name" type="text">
+<div class="container mx-auto p-8">
+  <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-semibold text-center mb-6">Dodaj Psa</h2>
 
-  <label for="breed">Rasa:</label>
-  <input id="breed" formControlName="breed" type="text">
+    <form [formGroup]="dogForm" (ngSubmit)="onSubmit()">
+      <!-- Imię Psa -->
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700">Imię Psa</label>
+        <input 
+          id="name" 
+          formControlName="name" 
+          type="text" 
+          class="input input-bordered w-full mt-2" 
+          placeholder="Imię Psa" />
+      </div>
 
-  <label for="age">Wiek:</label>
-  <input id="age" formControlName="age" type="number">
+      <!-- Rasa -->
+      <div class="mb-4">
+        <label for="breed" class="block text-gray-700">Rasa</label>
+        <input 
+          id="breed" 
+          formControlName="breed" 
+          type="text" 
+          class="input input-bordered w-full mt-2" 
+          placeholder="Rasa" />
+      </div>
 
-  <label for="photo">Zdjęcie:</label>
-  <input id="photo" formControlName="photo" type="file">
+      <!-- Wiek -->
+      <div class="mb-4">
+        <label for="age" class="block text-gray-700">Wiek</label>
+        <input 
+          id="age" 
+          formControlName="age" 
+          type="number" 
+          class="input input-bordered w-full mt-2" 
+          placeholder="Wiek" />
+      </div>
 
-  <button type="submit" [disabled]="dogForm.invalid">Dodaj Psa</button>
-</form>
+      <!-- Zdjęcie -->
+      <div class="mb-4">
+        <label for="photo" class="block text-gray-700">Zdjęcie</label>
+        <input 
+          id="photo" 
+          name="photo" 
+          formControlName="photo" 
+          type="file" 
+          class="input input-bordered w-full mt-2" 
+          (change)="onFileChange($event)" 
+          accept="image/*"/>
+      
+        <!-- Wyświetlanie zdjęcia po wybraniu -->
+        <div *ngIf="imagePreview" class="flex justify-start mt-2">
+          <div class="w-16 h-16 rounded-lg overflow-hidden">
+            <img [src]="imagePreview" alt="Zdjęcie psa" class="object-cover w-full h-full" />
+          </div>
+        </div>
+      </div>
 
-<div *ngIf="successMessage" class="success">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      <!-- Przyciski -->
+      <div class="flex justify-between items-center">
+        <button 
+          type="submit" 
+          [disabled]="dogForm.invalid" 
+          class="btn btn-primary w-full py-2 mt-4">
+          Dodaj Psa
+        </button>
+      </div>
+    </form>
+
+    <!-- Komunikaty -->
+    <div *ngIf="successMessage" class="mt-4 text-green-500 text-center">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="mt-4 text-red-500 text-center">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
