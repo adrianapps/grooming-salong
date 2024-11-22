@@ -21,17 +21,17 @@ export class ServiceService {
   }
 
   getService(serviceId: number): Observable<Service> {
-    return this.http.get<Service>(`${this.baseUrl}/services/${serviceId}`);
+    return this.http.get<Service>(`${this.baseUrl}/services/${serviceId}/`);
   }
 
   updateService(serviceId: number, serviceData: FormData): Observable<Service> {
     return this.http.put<Service>(
-      `${this.baseUrl}/services/${serviceId}`,
+      `${this.baseUrl}/services/${serviceId}/`,
       serviceData
     );
   }
 
   deleteService(serviceId: number): Observable<Service> {
-    return this.http.delete<Service>(`${this.baseUrl}/services/${serviceId}`);
+    return this.http.delete<Service>(`${this.baseUrl}/services/${serviceId}/`);
   }
 }

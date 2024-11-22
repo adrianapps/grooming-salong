@@ -21,14 +21,14 @@ export class DogService {
   }
 
   getDog(dogId: number): Observable<Dog> {
-    return this.http.get<Dog>(`${this.baseUrl}/dogs/${dogId}`);
+    return this.http.get<Dog>(`${this.baseUrl}/dogs/${dogId}/`);
   }
 
   updateDog(dogId: number, dogData: FormData): Observable<Dog> {
-    return this.http.put<Dog>(`${this.baseUrl}/dogs/${dogId}`, dogData);
+    return this.http.put<Dog>(`${this.baseUrl}/dogs/${dogId}/`, dogData);
   }
 
   deleteDog(dogId: number): Observable<Dog> {
-    return this.http.delete<Dog>(`${this.baseUrl}/dogs/${dogId}`);
+    return this.http.delete<Dog>(`${this.baseUrl}/dogs/${dogId}/`);
   }
 }
