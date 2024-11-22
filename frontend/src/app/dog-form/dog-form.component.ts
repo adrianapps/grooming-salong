@@ -47,7 +47,6 @@ export class DogFormComponent {
       this.dogService.createDog(formData).subscribe(
         response => {
           this.successMessage = "Pies został dodany!";
-          alert('Pies został dodany!');
           this.dogForm.reset();
           this.imagePreview = null;
           this.selectedFile = null; // Resetujemy wybrany plik po wysłaniu formularza
