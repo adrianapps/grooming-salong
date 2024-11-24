@@ -1,0 +1,42 @@
+.page-container {
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: linear-gradient(to right, #fda085, #f6d365);
+}
+
+.max-w-lg {
+    background: linear-gradient(to right, #f6d365, #fda085);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    max-width: 100%;
+    width: 80%;
+}
+
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    gap: 0.5rem; 
+}
+
+button {
+    border-radius: 0.375rem;
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    background-color: #f09a7a;
+    border: 0px;
+    flex-grow: 1;
+    height: 500px;
+}
+
+button:hover {
+    background-color: #e67e22;
+    cursor: pointer;
+}
+  
