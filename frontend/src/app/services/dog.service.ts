@@ -34,6 +34,6 @@ export class DogService {
   }
 
   getDogVisits(dogId: number): Observable<Visit> {
-    return this.http.get<Visit>(`${this.baseUrl}/dogs/${dogId}/visits/}`)
+    return this.http.get<Visit>(`${this.baseUrl}/dogs/${dogId}/visits/`)
   }
 }
