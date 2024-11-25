@@ -35,5 +35,5 @@ class DogVisits(generics.ListAPIView):
 
     def get_queryset(self):
         dog_id = self.kwargs.get("pk")
-        queryset = Visit.objects.filter(dog__id=dog_id)
+        queryset = Visit.objects.filter(dog__id=dog_id).prefetch_related("services").select_related("dog")
         return queryset
