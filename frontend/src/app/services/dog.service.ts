@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Dog } from '../models/dog.model';
+import { Visit } from '../models/visit.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,9 @@ export class DogService {
 
   deleteDog(dogId: number): Observable<Dog> {
     return this.http.delete<Dog>(`${this.baseUrl}/dogs/${dogId}/`);
+  }
+
+  getDogVisits(dogId: number): Observable<Visit> {
+    return this.http.get<Visit>(`${this.baseUrl}/dogs/${dogId}/visits/}`)
   }
 }

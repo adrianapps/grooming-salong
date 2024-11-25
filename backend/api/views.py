@@ -27,3 +27,13 @@ class VisitViewSet(viewsets.ModelViewSet):
         elif self.action == "retrieve":
             return Visit.objects.select_related("dog")
         return Visit.objects.all()
+
+
+class DogVisits(generics.ListAPIView): 
+    serializer_class = VisitSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        dog_id = self.kwargs.get("pk")
+        queryset = Visit.objects.filter(dog__id=dog_id)
+        return queryset
