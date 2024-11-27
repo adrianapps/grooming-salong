@@ -42,6 +42,7 @@ input[type="file"] {
 button {
     background-color: #f09a7a;
     color: black;
+    border: 0px;
 }
 
 button:hover {

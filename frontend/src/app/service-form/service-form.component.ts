@@ -41,7 +41,6 @@ export class ServiceFormComponent {
       this.serviceService.createService(this.serviceForm.value).subscribe(
         response => {
           console.log('Service created:', response);
-          alert('Usługa została dodana!');
           this.serviceForm.reset();
         },
         error => {
