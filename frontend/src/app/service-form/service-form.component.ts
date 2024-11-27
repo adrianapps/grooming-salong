@@ -41,10 +41,12 @@ export class ServiceFormComponent {
       this.serviceService.createService(this.serviceForm.value).subscribe(
         response => {
           console.log('Service created:', response);
+          this.successMessage = 'Serwis został pomyślnie dodany!';
           this.serviceForm.reset();
         },
         error => {
           console.error('Error:', error);
+          this.errorMessage = 'Wystąpił błąd podczas dodawania serwisu.';
         }
       );
     } else {
