@@ -16,13 +16,10 @@ export class ServiceTableComponent {
   constructor(private servicesService: ServiceService) {}
 
   ngOnInit(): void {
-    this.loadServices();
-  }
-
-  loadServices(): void {
-    this.servicesService.getServices().subscribe((data) => {
+    this.servicesService.service$.subscribe((data: Service[]) => {
       this.services = data;
     });
+    this.servicesService.loadServices();
   }
 
   deleteService(id: number): void {

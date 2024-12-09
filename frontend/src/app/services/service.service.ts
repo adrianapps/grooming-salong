@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Service } from '../models/service.model';
 
@@ -9,6 +9,8 @@ import { Service } from '../models/service.model';
 })
 export class ServiceService {
   baseUrl = environment.apiUrl;
+  private serviceSubject = new BehaviorSubject<Service[]>([]);
+  service$ = this.serviceSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -33,5 +35,16 @@ export class ServiceService {
 
   deleteService(serviceId: number): Observable<Service> {
     return this.http.delete<Service>(`${this.baseUrl}/services/${serviceId}/`);
+  }
+
+  addService(newService: Service): void {
+    const currentServices = this.serviceSubject.value;
+    this.serviceSubject.next([...currentServices, newService]);
+  }
+
+  loadServices(): void {
+    this.getServices().subscribe((data) => {
+      this.serviceSubject.next(data);
+    })
   }
 }
