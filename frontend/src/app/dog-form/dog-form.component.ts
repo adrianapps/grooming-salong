@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DogService } from '../services/dog.service';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
+import { DogTableComponent } from '../dog-table/dog-table.component';
 
 @Component({
   selector: 'app-dog-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, DogTableComponent],
   templateUrl: './dog-form.component.html',
   styleUrl: './dog-form.component.css'
 })
@@ -60,6 +61,7 @@ export class DogFormComponent {
       this.dogService.createDog(formData).subscribe(
         response => {
           this.successMessage = "Pies został dodany!";
+          this.dogService.addDog(response);
           this.dogForm.reset();
           this.imagePreview = null;
           this.selectedFile = null; // Resetujemy wybrany plik po wysłaniu formularza

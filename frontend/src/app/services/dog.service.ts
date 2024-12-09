@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Dog } from '../models/dog.model';
 import { Visit } from '../models/visit.model';
@@ -10,6 +10,8 @@ import { Visit } from '../models/visit.model';
 })
 export class DogService {
   baseUrl = environment.apiUrl;
+  private dogSubject = new BehaviorSubject<Dog[]>([]);
+  dog$ = this.dogSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -30,10 +32,27 @@ export class DogService {
   }
 
   deleteDog(dogId: number): Observable<Dog> {
-    return this.http.delete<Dog>(`${this.baseUrl}/dogs/${dogId}/`);
+    return this.http.delete<Dog>(`${this.baseUrl}/dogs/${dogId}/`).pipe(
+      tap(() => {
+        const currentDogs = this.dogSubject.value
+        const updatedDogs = currentDogs.filter(dog => dog.id !== dogId)
+        this.dogSubject.next(updatedDogs);
+      })
+    );
   }
 
   getDogVisits(dogId: number): Observable<Visit> {
-    return this.http.get<Visit>(`${this.baseUrl}/dogs/${dogId}/visits/`)
+    return this.http.get<Visit>(`${this.baseUrl}/dogs/${dogId}/visits/`);
+  }
+
+  addDog(newDog: Dog): void {
+    const currentDogs = this.dogSubject.value;
+    this.dogSubject.next([...currentDogs, newDog]);
+  }
+
+  loadDogs(): void {
+    this.getDogs().subscribe((data) => {
+      this.dogSubject.next(data);
+    });
   }
 }

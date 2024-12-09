@@ -1,0 +1,51 @@
+<div class="overflow-x-auto">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>Imię</th>
+        <th>Rasa</th>
+        <th>Wiek</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 0 -->
+      <tr *ngFor="let dog of dogs;">
+        <td>
+          <div class="flex items-center gap-4">
+            <div class="avatar">
+              <div class="mask mask-squircle h-13 w-12">
+                <img
+                  src="{{ dog.photo }}"
+                  alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">{{ dog.name }}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{ dog.breed }}
+          <br />
+        </td>
+        <td>{{ dog.age }}</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+          <button (click)="deleteDog(dog.id)" class="btn btn-error btn-xs">Delete</button>
+        </th>
+      </tr>
+    </tbody>
+    <!-- foot -->
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Imie</th>
+        <th>Rasa</th>
+        <th>Wiek</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
