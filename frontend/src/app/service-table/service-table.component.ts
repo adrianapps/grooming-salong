@@ -24,7 +24,7 @@ export class ServiceTableComponent {
 
   deleteService(id: number): void {
     this.servicesService.deleteService(id).subscribe(() => {
-      this.services = this.services.filter((service) => service.id !== id);
-    });
+      console.log(`Service with ID ${id} has been deleted`)
+    })
   }
 }

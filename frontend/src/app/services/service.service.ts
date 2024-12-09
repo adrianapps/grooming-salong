@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { Observable, BehaviorSubject } from 'rxjs';
+import {Observable, BehaviorSubject, tap} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Service } from '../models/service.model';
 
@@ -34,7 +34,13 @@ export class ServiceService {
   }
 
   deleteService(serviceId: number): Observable<Service> {
-    return this.http.delete<Service>(`${this.baseUrl}/services/${serviceId}/`);
+    return this.http.delete<Service>(`${this.baseUrl}/services/${serviceId}/`).pipe(
+      tap(() => {
+        const currentServices = this.serviceSubject.value
+        const updatedServices = currentServices.filter(service => service.id !== serviceId)
+        this.serviceSubject.next(updatedServices);
+      })
+    );
   }
 
   addService(newService: Service): void {
