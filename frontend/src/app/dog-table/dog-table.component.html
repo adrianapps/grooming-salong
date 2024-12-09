@@ -1,51 +1,38 @@
-<div class="overflow-x-auto">
-  <table class="table">
+<div class="overflow-x-auto max-w-4xl mx-auto p-4">
+  <table class="table-auto w-full text-sm table-striped">
     <!-- head -->
     <thead>
-      <tr>
-        <th>Imię</th>
-        <th>Rasa</th>
-        <th>Wiek</th>
-        <th></th>
+      <tr class="border-b">
+        <th class="px-4 py-2 text-left">Imię</th>
+        <th class="px-4 py-2 text-left">Rasa</th>
+        <th class="px-4 py-2 text-left">Wiek</th>
       </tr>
     </thead>
     <tbody>
       <!-- row 0 -->
-      <tr *ngFor="let dog of dogs;">
-        <td>
+      <tr *ngFor="let dog of dogs;" class="border-b odd:bg-orange-100">
+        <td class="px-4 py-2">
           <div class="flex items-center gap-4">
             <div class="avatar">
-              <div class="mask mask-squircle h-13 w-12">
+              <div class="mask mask-squircle h-16 w-16">
                 <img
                   src="{{ dog.photo }}"
-                  alt="Avatar Tailwind CSS Component" />
+                  class="object-cover w-full h-full"
+                />
               </div>
             </div>
             <div>
-              <div class="font-bold">{{ dog.name }}</div>
+              <div class="font-semibold">{{ dog.name }}</div>
             </div>
           </div>
         </td>
-        <td>
-          {{ dog.breed }}
-          <br />
-        </td>
-        <td>{{ dog.age }}</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
+        <td class="px-4 py-2">{{ dog.breed }}</td>
+        <td class="px-4 py-2">{{ dog.age }}</td>
+        <td class="px-4 py-2 text-center">
+          <button class="btn btn-ghost btn-xs">Details</button>
           <button (click)="deleteDog(dog.id)" class="btn btn-error btn-xs">Delete</button>
-        </th>
+        </td>
       </tr>
     </tbody>
-    <!-- foot -->
-    <tfoot>
-      <tr>
-        <th></th>
-        <th>Imie</th>
-        <th>Rasa</th>
-        <th>Wiek</th>
-        <th></th>
-      </tr>
-    </tfoot>
   </table>
 </div>
