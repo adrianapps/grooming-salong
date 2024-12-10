@@ -1,26 +1,23 @@
-<div class="overflow-x-auto">
-  <table class="table table-zebra">
+<div class="min-h-screen bg-gradient-to-br from-yellow-200 to-orange-500 p-6 rounded-lg shadow-md">
+  <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">Lista Dostępnych Serwisów</h1>
+  <table class="w-full table-auto border-collapse bg-orange-300 rounded-lg shadow-lg">
     <!-- head -->
     <thead>
-    <tr>
-      <th></th>
-      <th>Nazwa</th>
-      <th>Opis</th>
-      <th>Cena</th>
-    </tr>
+      <tr class="bg-orange-400 text-white uppercase text-sm leading-normal">
+        <th class="py-3 px-6 text-left">#</th>
+        <th class="py-3 px-6 text-left">Nazwa</th>
+        <th class="py-3 px-6 text-left">Opis</th>
+        <th class="py-3 px-6 text-left">Cena</th>
+      </tr>
     </thead>
-    <tbody>
-    <!-- row 1 -->
-    <tr *ngFor="let service of services; let i = index">
-      <th>{{ i + 1 }}</th>
-      <td>{{ service.name }}</td>
-      <td>{{ service.description }}</td>
-      <td>{{ service.price }}</td>
-      <td>
-        <!-- Add a delete button for each row -->
-        <button (click)="deleteService(service.id)" class="btn btn-error">Delete</button>
-      </td>
-    </tr>
+    <tbody class="text-gray-800 text-sm font-medium">
+      <tr *ngFor="let service of services; let i = index"
+          class="border-b border-orange-500 hover:bg-orange-200 transition-colors">
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{ i + 1 }}</td>
+        <td class="py-3 px-6 text-left">{{ service.name }}</td>
+        <td class="py-3 px-6 text-left">{{ service.description }}</td>
+        <td class="py-3 px-6 text-left">{{ service.price }}</td>
+      </tr>
     </tbody>
   </table>
 </div>
