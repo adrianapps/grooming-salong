@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DogService } from '../services/dog.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -8,10 +8,9 @@ import { ServiceService } from '../services/service.service';
 import { Dog } from '../models/dog.model';
 import { Service } from '../models/service.model';
 import { VisitTableComponent } from '../visit-table/visit-table.component';
-import {DogTableComponent} from '../dog-table/dog-table.component';
-import {Visit} from '../models/visit.model';
-import {RouterLink} from '@angular/router';
-
+import { DogTableComponent } from '../dog-table/dog-table.component';
+import { Visit } from '../models/visit.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-visit-form',
@@ -22,8 +21,8 @@ import {RouterLink} from '@angular/router';
 })
 export class VisitFormComponent implements OnInit {
   visitForm!: FormGroup;
-  dogs: Dog[] = [];  // Lista dostępnych psów
-  services: Service[] = [];  // Lista dostępnych usług
+  dogs: Dog[] = [];
+  services: Service[] = [];
   successMessage: string = '';
   errorMessage: string = '';
   visits: Visit[] = [];
@@ -33,26 +32,34 @@ export class VisitFormComponent implements OnInit {
     private visitService: VisitService,
     private dogService: DogService,
     private serviceService: ServiceService,
-  ){}
+  ) {}
 
-  // Metoda do pobierania dostępnych usług z backendu
   ngOnInit(): void {
-    // Inicjalizacja formularza
     this.visitForm = this.fb.group({
-      date: ['', [Validators.required]],
+      date: ['', [Validators.required, this.futureDateValidator]],
       description: [''],
-      services: [[], Validators.required],  // Usługi
-      dog: ['', Validators.required]  // Pies
+      services: [[], Validators.required],
+      dog: ['', Validators.required]
     });
 
     this.visitService.visit$.subscribe((data: Visit[]) => {
       this.visits = data;
     });
     this.visitService.loadVisits();
-
-    // Ładowanie psów i usług z serwera
     this.loadDogs();
     this.loadServices();
+  }
+
+  // Walidator dla daty
+  futureDateValidator(control: AbstractControl): ValidationErrors | null {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+
+    // Sprawdzenie czy data jest w przyszłości
+    if (selectedDate <= currentDate) {
+      return { pastDate: true };
+    }
+    return null;
   }
 
   loadDogs() {
@@ -69,31 +76,24 @@ export class VisitFormComponent implements OnInit {
 
   onSubmit() {
     if (this.visitForm.valid) {
-      // Tworzenie obiektu FormData
       const formData = new FormData();
-
-      // Dodawanie pól do FormData
       formData.append('date', this.visitForm.get('date')?.value);
-      formData.append('description', this.visitForm.get('description')?.value || "");
+      formData.append('description', this.visitForm.get('description')?.value || '');
 
-      // Usługi - przekazanie wybranych usług
       const selectedServices = this.visitForm.get('services')?.value;
       if (selectedServices && selectedServices.length > 0) {
         selectedServices.forEach((serviceId: number) => {
-          formData.append('services', serviceId.toString());  // Przekazujemy ID usług
+          formData.append('services', serviceId.toString());
         });
       }
 
-      // Pies - przekazanie psa
       const selectedDog = this.visitForm.get('dog')?.value;
       if (selectedDog) {
-        formData.append('dog', selectedDog.toString());  // Przekazujemy ID psa
+        formData.append('dog', selectedDog.toString());
       }
 
-      // Sprawdzenie, co dokładnie wysyłasz
       console.log('Data wysyłane do API:', formData);
 
-      // Przesyłanie danych do API
       this.visitService.createVisit(formData).subscribe(
         (response) => {
           console.log('Wizyta utworzona:', response);

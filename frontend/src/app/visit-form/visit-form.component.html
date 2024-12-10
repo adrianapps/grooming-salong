@@ -34,13 +34,11 @@
 
       <!-- Data wizyty -->
       <div class="mb-4">
-        <label for="date" class="block text-gray-700">Data wizyty:</label>
-        <input
-          id="date"
-          formControlName="date"
-          type="datetime-local"
-          class="input input-bordered w-full mt-2"
-        />
+        <label for="date">Data wizyty:</label>
+        <input id="date" type="date" formControlName="date" />
+        <div *ngIf="visitForm.get('date')?.hasError('pastDate') && visitForm.get('date')?.touched">
+          Data wizyty nie może być w przeszłości.
+  </div>
       </div>
 
       <!-- Opis wizyty -->

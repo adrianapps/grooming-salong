@@ -22,6 +22,15 @@ export class VisitTableComponent {
 
   constructor(private visitService: VisitService) {}
 
+  // Sprawdzanie, czy wizyta jest w przyszłości
+  isFutureVisit(date: string): boolean {
+    const visitDate = new Date(date);
+    const currentDate = new Date();
+
+    // Porównanie dat
+    return visitDate > currentDate;
+  }
+
   deleteVisit(id: number): void {
     this.visitService.deleteVisit(id).subscribe(() => {
       console.log(`Visit with ID ${id} has been deleted`)

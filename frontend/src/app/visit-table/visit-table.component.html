@@ -35,6 +35,7 @@
         <td class="px-4 py-2">{{ visit.date | date:'dd.MM.yyyy HH:mm' }}</td>
         <td class="px-4 py-2 text-center" *ngIf="showDeleteButton">
           <button
+            *ngIf="isFutureVisit(visit.date)" 
             (click)="deleteVisit(visit.id)"
             class="btn btn-error btn-xs"
           >
