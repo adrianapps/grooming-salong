@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DogService } from '../services/dog.service';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VisitService } from '../services/visit.service';
 import { ServiceService } from '../services/service.service';
 import { Dog } from '../models/dog.model';
 import { Service } from '../models/service.model';
+import { VisitTableComponent } from '../visit-table/visit-table.component';
+import {DogTableComponent} from '../dog-table/dog-table.component';
 
 
 @Component({
   selector: 'app-visit-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, VisitTableComponent, DogTableComponent],
   templateUrl: './visit-form.component.html',
   styleUrl: './visit-form.component.css'
 })
@@ -61,11 +63,11 @@ export class VisitFormComponent implements OnInit {
     if (this.visitForm.valid) {
       // Tworzenie obiektu FormData
       const formData = new FormData();
-      
+
       // Dodawanie pól do FormData
       formData.append('date', this.visitForm.get('date')?.value);
       formData.append('description', this.visitForm.get('description')?.value || "");
-      
+
       // Usługi - przekazanie wybranych usług
       const selectedServices = this.visitForm.get('services')?.value;
       if (selectedServices && selectedServices.length > 0) {
@@ -88,6 +90,7 @@ export class VisitFormComponent implements OnInit {
         (response) => {
           console.log('Wizyta utworzona:', response);
           this.successMessage = 'Wizyta została pomyślnie zarezerwowana!';
+          this.visitService.addVisit(response);
           this.visitForm.reset();
         },
         (error) => {

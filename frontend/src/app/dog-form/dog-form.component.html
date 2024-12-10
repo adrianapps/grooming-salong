@@ -6,22 +6,22 @@
       <!-- Imię Psa -->
       <div class="mb-4">
         <label for="name" class="block text-gray-700">Imię Psa</label>
-        <input 
-          id="name" 
-          formControlName="name" 
-          type="text" 
-          class="input input-bordered w-full mt-2" 
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="input input-bordered w-full mt-2"
           placeholder="Imię Psa" />
       </div>
 
       <!-- Rasa -->
       <div class="mb-4">
         <label for="breed" class="block text-gray-700">Rasa</label>
-        <input 
-          id="breed" 
-          formControlName="breed" 
-          type="text" 
-          class="input input-bordered w-full mt-2" 
+        <input
+          id="breed"
+          formControlName="breed"
+          type="text"
+          class="input input-bordered w-full mt-2"
           placeholder="Rasa" />
       </div>
 
@@ -29,28 +29,28 @@
       <!-- Wiek -->
       <div class="mb-4">
         <label for="age" class="block text-gray-700">Wiek</label>
-        <input 
-          id="age" 
-          formControlName="age" 
-          type="number" 
-          class="input input-bordered w-full mt-2" 
+        <input
+          id="age"
+          formControlName="age"
+          type="number"
+          class="input input-bordered w-full mt-2"
           placeholder="Wiek" />
       </div>
 
-  
+
 
       <!-- Zdjęcie -->
       <div class="mb-4">
         <label for="photo" class="block text-gray-700">Zdjęcie</label>
-        <input 
-          id="photo" 
-          name="photo" 
-          formControlName="photo" 
-          type="file" 
-          class="input input-bordered w-full mt-2" 
-          (change)="onFileChange($event)" 
+        <input
+          id="photo"
+          name="photo"
+          formControlName="photo"
+          type="file"
+          class="input input-bordered w-full mt-2"
+          (change)="onFileChange($event)"
           accept="image/*"/>
-      
+
         <!-- Wyświetlanie zdjęcia po wybraniu -->
         <div *ngIf="imagePreview" class="flex justify-start mt-2">
           <div class="w-16 h-16 rounded-lg overflow-hidden">
@@ -61,9 +61,9 @@
 
       <!-- Przyciski -->
       <div class="flex justify-between items-center">
-        <button 
-          type="submit" 
-          [disabled]="dogForm.invalid" 
+        <button
+          type="submit"
+          [disabled]="dogForm.invalid"
           class="btn btn-primary w-full py-2 mt-4">
           Dodaj Psa
         </button>

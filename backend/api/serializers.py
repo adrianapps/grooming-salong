@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers
 from .models import Service, Dog, Visit
 
@@ -12,6 +13,13 @@ class DogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dog
         fields = ["id", "name", "breed", "age", "photo"]
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation.get('photo'):
+            representation['photo'] = settings.SITE_URL + instance.photo.url
+
+        return representation
 
 
 class VisitSerializer(serializers.ModelSerializer):
