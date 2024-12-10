@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { DogService } from '../services/dog.service';
 import { Dog } from '../models/dog.model';
 import { CommonModule } from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-dog-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dog-table.component.html',
   styleUrl: './dog-table.component.css'
 })

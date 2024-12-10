@@ -47,9 +47,13 @@ export class VisitService {
     this.visitSubject.next([...currentVisits, newVisit]);
   }
 
-  loadDogs(): void {
+  loadVisits(): void {
     this.getVisits().subscribe((data) => {
       this.visitSubject.next(data);
     });
+  }
+
+  getDogVisits(dogId: number): Observable<Visit[]> {
+    return this.http.get<Visit[]>(`${this.baseUrl}/dogs/${dogId}/visits/`);
   }
 }

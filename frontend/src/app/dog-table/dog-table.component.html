@@ -29,7 +29,7 @@
         <td class="px-4 py-2">{{ dog.breed }}</td>
         <td class="px-4 py-2">{{ dog.age }}</td>
         <td class="px-4 py-2 text-center">
-          <button class="btn btn-ghost btn-xs">Details</button>
+          <button [routerLink]="['/dogs-visits', dog.id]" class="btn btn-ghost btn-xs">Details</button>
           <button (click)="deleteDog(dog.id)" class="btn btn-error btn-xs">Delete</button>
         </td>
       </tr>

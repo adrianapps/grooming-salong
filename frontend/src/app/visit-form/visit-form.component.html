@@ -27,7 +27,7 @@
           class="input input-bordered w-full mt-2"
         >
           <option *ngFor="let service of services" [value]="service.id">
-            {{ service.name }} - {{ service.price }} zł
+            {{ service.name }} - ${{ service.price }}
           </option>
         </select>
       </div>
@@ -75,6 +75,6 @@
     </div>
   </div>
   <div class="table-container">
-    <app-visit-table></app-visit-table>
+    <app-visit-table [visits]="visits" [showDeleteButton]=true></app-visit-table>
   </div>
 </div>

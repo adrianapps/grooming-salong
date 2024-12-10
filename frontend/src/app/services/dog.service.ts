@@ -41,10 +41,6 @@ export class DogService {
     );
   }
 
-  getDogVisits(dogId: number): Observable<Visit> {
-    return this.http.get<Visit>(`${this.baseUrl}/dogs/${dogId}/visits/`);
-  }
-
   addDog(newDog: Dog): void {
     const currentDogs = this.dogSubject.value;
     this.dogSubject.next([...currentDogs, newDog]);

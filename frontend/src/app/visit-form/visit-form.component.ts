@@ -9,12 +9,14 @@ import { Dog } from '../models/dog.model';
 import { Service } from '../models/service.model';
 import { VisitTableComponent } from '../visit-table/visit-table.component';
 import {DogTableComponent} from '../dog-table/dog-table.component';
+import {Visit} from '../models/visit.model';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-visit-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, VisitTableComponent, DogTableComponent],
+  imports: [CommonModule, ReactiveFormsModule, VisitTableComponent, DogTableComponent, RouterLink],
   templateUrl: './visit-form.component.html',
   styleUrl: './visit-form.component.css'
 })
@@ -24,6 +26,7 @@ export class VisitFormComponent implements OnInit {
   services: Service[] = [];  // Lista dostępnych usług
   successMessage: string = '';
   errorMessage: string = '';
+  visits: Visit[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +44,11 @@ export class VisitFormComponent implements OnInit {
       services: [[], Validators.required],  // Usługi
       dog: ['', Validators.required]  // Pies
     });
+
+    this.visitService.visit$.subscribe((data: Visit[]) => {
+      this.visits = data;
+    });
+    this.visitService.loadVisits();
 
     // Ładowanie psów i usług z serwera
     this.loadDogs();

@@ -1,31 +1,26 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Dog} from '../models/dog.model';
 import {DogService} from '../services/dog.service';
 import {Visit} from '../models/visit.model';
 import {VisitService} from '../services/visit.service';
-import {DatePipe, NgForOf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-visit-table',
   standalone: true,
   imports: [
     NgForOf,
-    DatePipe
+    DatePipe,
+    NgIf
   ],
   templateUrl: './visit-table.component.html',
   styleUrl: './visit-table.component.css'
 })
 export class VisitTableComponent {
-  visits: Visit[] = [];
+  @Input() visits: Visit[] = [];
+  @Input() showDeleteButton: boolean = false;
 
   constructor(private visitService: VisitService) {}
-
-  ngOnInit(): void {
-    this.visitService.visit$.subscribe((data: Visit[]) => {
-      this.visits = data;
-    console.log('Visits Data:', JSON.stringify(this.visits, null, 2));    });
-    this.visitService.loadDogs();
-  }
 
   deleteVisit(id: number): void {
     this.visitService.deleteVisit(id).subscribe(() => {

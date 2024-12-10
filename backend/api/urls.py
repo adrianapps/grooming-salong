@@ -10,5 +10,5 @@ router.register(r"visits", VisitViewSet, basename="visit")
 urlpatterns = router.urls
 
 urlpatterns += [
-    path("dogs/<int:pk>/visits", DogVisits.as_view(), name="dog-visits"),
+    path("dogs/<int:pk>/visits/", DogVisits.as_view(), name="dog-visits"),
 ]
