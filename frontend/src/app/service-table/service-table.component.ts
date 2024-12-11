@@ -16,15 +16,8 @@ export class ServiceTableComponent {
   constructor(private servicesService: ServiceService) {}
 
   ngOnInit(): void {
-    this.servicesService.service$.subscribe((data: Service[]) => {
+    this.servicesService.getServices().subscribe((data: Service[]) => {
       this.services = data;
     });
-    this.servicesService.loadServices();
-  }
-
-  deleteService(id: number): void {
-    this.servicesService.deleteService(id).subscribe(() => {
-      console.log(`Service with ID ${id} has been deleted`)
-    })
   }
 }

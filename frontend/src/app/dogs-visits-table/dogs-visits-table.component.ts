@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {VisitTableComponent} from '../visit-table/visit-table.component';
 import {Visit} from '../models/visit.model';
-import {DogService} from '../services/dog.service';
 import {VisitService} from '../services/visit.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgIf} from '@angular/common';
