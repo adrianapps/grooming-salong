@@ -28,10 +28,6 @@ export class VisitService {
     return this.http.get<Visit>(`${this.baseUrl}/visits/${visitId}/`);
   }
 
-  updateVisit(visitId: number, visitData: FormData): Observable<Visit> {
-    return this.http.put<Visit>(`${this.baseUrl}/visits/${visitId}/`, visitData);
-  }
-
   deleteVisit(visitId: number): Observable<Visit> {
     return this.http.delete<Visit>(`${this.baseUrl}/visits/${visitId}/`).pipe(
       tap(() => {
